@@ -108,8 +108,9 @@ export default function Home() {
     }
     
     return (
-       <div className="bg-2 min-h-screen">
+      <div>
         <Navbar />
+       <div className="bg-2">
         <h1 className="p-10 text-5xl underline text-center font-bold">Food Shuffle</h1>
         <h1 className="text-3xl font-bold text-center">Meal Generator</h1>
         <div className="bg-2 p-5">
@@ -130,7 +131,7 @@ export default function Home() {
           <button onClick={() => {pickMeat(); pickVege(); pickSide();}} className="bg-1 hover:bg-5 font-bold py-2 px-8 text-lg shadow border rounded">Choose All 3</button>
         </div>
         
-        <div className="bg-3">
+        <div className="bg-3 min-h-screen">
             <h1 className="p-10 text-3xl underline font-bold text-center">See Foods</h1>
             <div className="flex flex-wrap">
               <div className="w-full sm:w-full md:w-1/3 lg:w-1/3 xl:w-1/3 flex flex-col p-5 border">
@@ -188,5 +189,6 @@ export default function Home() {
 
         </div>
       </div> 
+      </div>
     )
 }
