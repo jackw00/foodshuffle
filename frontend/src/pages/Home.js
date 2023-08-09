@@ -89,10 +89,14 @@ export default function Home() {
 
     //authorization
     const checkAuth = () => {
-      if(localStorage.getItem('user') == ''){
+      if(localStorage.getItem('user') == '' || localStorage.getItem('user') == null){
         return true
       } else {
-        user = localStorage.getItem('user') 
+        app.post('/auth', {
+          user: localStorage.getItem('user')
+        }).then((response) => {
+          user = response.data  
+        })
       }
     }
 

@@ -6,13 +6,14 @@ const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const bcrypt = require('bcrypt')
 const saltRounds = 10
+const CryptoJS = require('crypto-js')
 
 const PORT = 3001
 
 const app = express()
 
 app.use(cors({
-    origin: ["https://foodshuffle.vercel.app"],
+    origin: ["https://foodshuffle.vercel.app", "http://localhost:3000"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
 }));
@@ -165,7 +166,8 @@ app.post('/login', (req, res) => {
         if (result.length > 0) {
             bcrypt.compare(password, result[0].password, (error, response) => {
                 if(response){                   
-                    res.json({loggedIn: true, result: result[0].username})
+                    var encrypt = CryptoJS.AES.encrypt(result[0].username, process.env.AES_KEY).toString()
+                    res.json({loggedIn: true, username: result[0].username, encryptuser: encrypt})
                 } else {
                     res.json({loggedIn: false, message: "Username and password combination is incorrect."})
                 }
@@ -175,8 +177,11 @@ app.post('/login', (req, res) => {
         }
     })
 })
-
-
+app.post('/auth', (req, res) => {
+    var user = req.body.user;
+    user = CryptoJS.AES.decrypt(user, process.env.AES_KEY).toString(CryptoJS.enc.Utf8)
+    res.send(user);
+})
 db.connect(function(err) {
     if (err) {
         return console.error('error: ' + err.message)

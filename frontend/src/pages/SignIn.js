@@ -40,9 +40,9 @@ export default function SignIn() {
         setUsernameLogin('')
         setPasswordLogin('')
         if(response.data.loggedIn) {
-            setLoginStatus("Welcome " + response.data.result + "!")
+            setLoginStatus("Welcome " + response.data.username + "!")
             setLoggedIn(true)
-            localStorage.setItem('user', response.data.result)
+            localStorage.setItem('user', response.data.encryptuser)
         } else {
             setLoginStatus(response.data.message)
         }
@@ -51,10 +51,14 @@ export default function SignIn() {
 
   //check if already logged in
   const checkAuth = () => {
-    if(localStorage.getItem('user') == ''){
+    if(localStorage.getItem('user') == '' || localStorage.getItem('user') == null){
       return true
     } else {
-      user = localStorage.getItem('user') 
+      app.post('/auth', {
+        user: localStorage.getItem('user')
+      }).then((response) => {
+        user = response.data  
+      })
     }
   }
 
@@ -62,9 +66,9 @@ export default function SignIn() {
     return ( 
     <div className="flex flex-col items-center justify-center bg-3 min-h-screen">
       <h1 className="font-bold text-3xl mb-4">Food Shuffle</h1>
-      <h1 className="font-medium text-xl mb-2">Welcome back {user}!</h1>
+      <h1 className="font-medium text-xl mb-2">Welcome!</h1>
       <button className="bg-4 my-5 hover:bg-5 font-bold py-2 px-8 text-lg shadow border rounded"><a href="/home">Click here to go to your dashboard.</a></button>
-      <button className="font-medium mt-6"><a href="/logout">Not {user}? Click here to logout.</a></button>
+      <button className="font-medium mt-6"><a href="/logout">You are already logged in. Click here to logout.</a></button>
     </div>
     )
   }
