@@ -56,7 +56,7 @@ export default function Home() {
   
     //generate foods
     const pickMeat = () => {
-      app.post('http://localhost:3001/pickMeat', {username: user}).then((response) => {
+      app.post('/pickMeat', {username: user}).then((response) => {
         if(response.data[0] != null) {
           setRandMeat(response.data[0].name)
         }
