@@ -1,9 +1,7 @@
-import { useState, useEffect} from 'react';
+import { useState} from 'react';
 import app from '../axiosConfig.js';
 import '../index.css';
 import UnauthNavbar from '../components/UnauthNavbar';
-import {Navigate} from 'react-router-dom';
-
 export default function SignIn() {
 
   const [usernameReg, setUsernameReg] = useState('')
@@ -15,6 +13,8 @@ export default function SignIn() {
   const [loginStatus, setLoginStatus] = useState('')
   const [loggedIn, setLoggedIn] = useState(false)
 
+  const [registerStatus, setRegisterStatus] = useState('')
+
   var user = ''
 
   app.defaults.withCredentials = true;
@@ -24,9 +24,11 @@ export default function SignIn() {
       password: passwordReg
     }).then((response) => {
       if(response.data.code = 'ER_DUP_ENTRY') {
-        alert('This username already exists. Try a different one.')
+        console.log('here')
+        setRegisterStatus('This username already exists. Try a different one.')
       } else {
-        
+        console.log('test')
+        setRegisterStatus('Welcome to Food Shuffle. Log in below!')
       }
     })
   }
@@ -70,7 +72,7 @@ export default function SignIn() {
 
   return (
     <>
-        <UnauthNavbar />
+      <UnauthNavbar />
       <div className="flex flex-col items-center bg-3 min-h-screen">
         <h1 className="m-6 mt-8 text-3xl font-bold">Food Shuffle</h1>
         <p className="text-l font-medium text-center max-w-2xl m-2">Welcome to Food Shuffle. Can't decide what to eat? Let us help! Start by creating an account. Then, add all your favorite foods, categorized as a meat, side, or vegetable - and that's it! You can randomly generate what to eat by category or all at once. You can see a list of all your current foods, and update, delete, or add foods at any time. Have fun!"</p>
@@ -82,6 +84,7 @@ export default function SignIn() {
           <input className="block p-2 shadow border rounded" type="text" placeholder="New Password" onChange={(e)=> {setPasswordReg(e.target.value)}}></input>
           <button className="bg-1 my-5 hover:bg-5 font-bold py-1 px-4 text-sm shadow border rounded" onClick={register}>Register</button>
         </div>
+        <h1 className='font-medium text-lg m-2'>{registerStatus}</h1>
         <div className=''>
             <h1 className='text-xl font-bold text-center m-4'>Login:</h1>
             <label className='p-2 font-medium text-lg'>Username</label>

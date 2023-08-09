@@ -3,3 +3,6 @@
 
 ### SSL Certificate ###
 DigiCertGlobalRootCA.crt.pem
+
+### node modules ###
+node_modules

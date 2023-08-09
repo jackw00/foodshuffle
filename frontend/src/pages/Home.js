@@ -108,7 +108,7 @@ export default function Home() {
     }
     
     return (
-       <div className="bg-2">
+       <div className="bg-2 min-h-screen">
         <Navbar />
         <h1 className="p-10 text-5xl underline text-center font-bold">Food Shuffle</h1>
         <h1 className="text-3xl font-bold text-center">Meal Generator</h1>
