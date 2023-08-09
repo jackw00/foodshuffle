@@ -13,7 +13,7 @@ const PORT = 3001
 const app = express()
 
 app.use(cors({
-    origin: ["https://foodshuffle.vercel.app"],
+    origin: ["http://localhost:3000"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
 }));

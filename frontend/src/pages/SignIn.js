@@ -36,7 +36,6 @@ export default function SignIn() {
       username: usernameLogin,
       password: passwordLogin
     }).then((response) => {
-      console.log(response)
         setUsernameLogin('')
         setPasswordLogin('')
         if(response.data.loggedIn) {
