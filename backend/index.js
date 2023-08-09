@@ -147,7 +147,9 @@ app.post('/register', (req, res) => {
         db.query("INSERT INTO users (username, password) VALUES (?, ?)", [username, hash], 
         (err, result) => {
             if(err) {
-                res.send(err)
+                res.send({registered: false, message: 'This username already exists. Try a different one.'})
+            } else {
+                res.send({registered: true, message: "Welcome to Food Shuffle! Log in below."})
             }
         })
     })    
@@ -163,7 +165,7 @@ app.post('/login', (req, res) => {
         if (result.length > 0) {
             bcrypt.compare(password, result[0].password, (error, response) => {
                 if(response){                   
-                    res.json({loggedIn: true, result: result})
+                    res.json({loggedIn: true, result: result[0].username})
                 } else {
                     res.json({loggedIn: false, message: "Username and password combination is incorrect."})
                 }

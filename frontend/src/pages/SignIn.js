@@ -23,12 +23,10 @@ export default function SignIn() {
       username: usernameReg,
       password: passwordReg
     }).then((response) => {
-      if(response.data.code = 'ER_DUP_ENTRY') {
-        console.log('here')
-        setRegisterStatus('This username already exists. Try a different one.')
+      if(response.data.registered) {
+        setRegisterStatus(response.data.message)
       } else {
-        console.log('test')
-        setRegisterStatus('Welcome to Food Shuffle. Log in below!')
+        setRegisterStatus(response.data.message)
       }
     })
   }
@@ -38,12 +36,13 @@ export default function SignIn() {
       username: usernameLogin,
       password: passwordLogin
     }).then((response) => {
+      console.log(response)
         setUsernameLogin('')
         setPasswordLogin('')
         if(response.data.loggedIn) {
-            setLoginStatus("Welcome " + response.data.result[0].username + "!")
+            setLoginStatus("Welcome " + response.data.result + "!")
             setLoggedIn(true)
-            localStorage.setItem('user', response.data.result[0].username)
+            localStorage.setItem('user', response.data.result)
         } else {
             setLoginStatus(response.data.message)
         }
