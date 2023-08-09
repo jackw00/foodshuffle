@@ -1,0 +1,5 @@
+### ENV File ###
+.env
+
+### SSL Certificate ###
+DigiCertGlobalRootCA.crt.pem
