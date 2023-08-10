@@ -12,7 +12,6 @@ export default function NewFood() {
 
   //add foods
   const addFood = () => {
-    console.log("adding food...")
     app.post('/create', {
       category: category,
       name: name,
